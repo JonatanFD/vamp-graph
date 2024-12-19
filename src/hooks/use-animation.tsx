@@ -31,7 +31,7 @@ export const useAnimation = create<AnimationState>((set) => ({
     algorithm: null,
     setAlgorithm: (algorithm: Algorithm) => set({ algorithm }),
     solution: null,
-    setSolution: (solution: MSTSolution | FordFulkersonSolution) => set({ solution }),
+    setSolution: (solution: MSTSolution | FordFulkersonSolution) => set({ solution, step: -1, row: -1 }),
     row: -1,
     step: -1,
     setRow: (row: number) => set({ row }),

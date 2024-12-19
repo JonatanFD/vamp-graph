@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useVampGraph } from "@/hooks/use-vamp-graph";
 import { MSTSolution, useAnimation } from "@/hooks/use-animation";
 import { SidebarGroupContent } from "../ui/sidebar";
+import { prim } from "@/lib/algorithms/prim";
 
 const PrimFormSchema = z.object({
     origin: z.string(),
@@ -22,7 +23,7 @@ const PrimFormSchema = z.object({
 
 export default function Prim() {
     const { getCurrentPage } = useVampGraph();
-    const { step, setStep, solution } = useAnimation();
+    const { step, setStep, solution, setSolution } = useAnimation();
     const nodeNames = Object.keys(getCurrentPage()!.graph);
 
     const formState = useForm<z.infer<typeof PrimFormSchema>>({
@@ -33,7 +34,9 @@ export default function Prim() {
     });
 
     const onSubmit = formState.handleSubmit((data) => {
-        console.log(data);
+        const currentPage = getCurrentPage();
+        if (!currentPage) return;
+        setSolution(prim(currentPage.graph, data.origin));
     });
 
     const handlePrevStep = () => {
@@ -42,7 +45,7 @@ export default function Prim() {
     };
 
     const handleNextStep = () => {
-        const sol = {...solution} as MSTSolution;
+        const sol = { ...solution } as MSTSolution;
         if (step === sol.tree.length - 1) return;
         setStep(step + 1);
     };
