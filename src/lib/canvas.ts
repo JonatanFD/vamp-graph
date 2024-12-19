@@ -13,6 +13,7 @@ export interface CanvaEdge {
     source: number;
     target: number;
     weight: number;
+    selected: boolean;
 }
 
 export function createNodeAndEdges(graph: Graph, coords: GraphCoord) {
@@ -36,6 +37,7 @@ export function createNodeAndEdges(graph: Graph, coords: GraphCoord) {
                 source: nodes.findIndex((node) => node.label === source),
                 target: nodes.findIndex((node) => node.label === target),
                 weight: 1,
+                selected: false,
             };
             edges.push(edge);
         }

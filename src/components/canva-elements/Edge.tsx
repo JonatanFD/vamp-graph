@@ -12,7 +12,9 @@ export default function Edge({
     index: number;
     isDirected: boolean;
 }) {
+
     const NODE_RADIUS = 14;
+    const EDGE_COLOR = edge.selected ? "#0C59DF" : "white";
 
     const points = getPoints(
         nodes[edge.source],
@@ -28,14 +30,14 @@ export default function Edge({
                     stroke={"white"}
                     points={points}
                     strokeWidth={2}
-                    fill={"white"}
+                    fill={EDGE_COLOR}
                     lineCap="round"
                 />
             ) : (
                 <Line
                     key={index}
                     points={points}
-                    stroke={"white"}
+                    stroke={EDGE_COLOR}
                     strokeWidth={2}
                 />
             )}

@@ -9,6 +9,7 @@ import {
 import CanvaPicker from "./menu-elements/CanvaPicker";
 import CanvaAlgorithm from "./menu-elements/CanvaAlgorithm";
 import CanvaSettings from "./menu-elements/CanvaSettings";
+import CanvaAnimation from "./menu-elements/CanvaAnimation";
 
 export default function Menu() {
     return (
@@ -25,6 +26,7 @@ export default function Menu() {
             <SidebarContent>
                 <CanvaPicker />
                 <CanvaAlgorithm />
+                <CanvaAnimation />
             </SidebarContent>
 
             <SidebarSeparator />

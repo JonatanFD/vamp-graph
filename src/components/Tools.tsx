@@ -14,9 +14,10 @@ export default function Tools() {
             <ToggleGroup
                 type="single"
                 variant="outline"
+                defaultValue="select"
                 onValueChange={handleValueChange}
             >
-                <ToggleGroupItem value="">
+                <ToggleGroupItem value="select">
                     <Mouse />
                 </ToggleGroupItem>
                 <ToggleGroupItem value="addNode">

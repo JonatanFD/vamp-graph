@@ -11,10 +11,12 @@ import { KonvaEventObject } from "konva/lib/Node";
 import { useEffect, useState } from "react";
 import Node from "./canva-elements/Node";
 import Edge from "./canva-elements/Edge";
+import { Algorithm, MSTSolution, useAnimation } from "@/hooks/use-animation";
 
 export default function CanvaContent() {
     const { currentPage, pages } = useVampGraph();
     const { graphs, updateCoords } = useCanvas();
+    const { step, row, solution, algorithm } = useAnimation();
 
     const [nodes, setNodes] = useState<CanvaNode[]>([]);
     const [edges, setEdges] = useState<CanvaEdge[]>([]);
@@ -82,6 +84,47 @@ export default function CanvaContent() {
             setEdges(filteredEdges);
         }
     }, [currentPage, graphs, pages]);
+
+    useEffect(() => {
+        if (!solution) return;
+
+        if (algorithm === Algorithm.PRIM) {
+
+            const getStep = (step: number) => {
+                const sol = solution as MSTSolution;
+                const tree = sol.tree;
+
+                const matches = new Set<string>();
+                for (let i = 0; i < step + 1; i++) {
+                    matches.add(tree[i][0] + tree[i][1]);
+                    matches.add(tree[i][1] + tree[i][0]);
+                }
+
+                return matches;
+            };
+            const combinations = getStep(step);
+
+            const showEdges = (prev: CanvaEdge[]) => {
+                const newEdges = prev.map((edge) => {
+                    const edgeKey = edge.source.toString() + edge.target.toString();
+                    if (!combinations.has(edgeKey)) {
+                        edge.selected = false;
+                        return edge;
+                    }
+
+                    edge.selected = true;
+                    return edge;
+                });
+                return newEdges;
+            };
+
+            setEdges(showEdges(edges));
+        }
+
+
+
+
+    }, [step, row]);
 
     return (
         <>
