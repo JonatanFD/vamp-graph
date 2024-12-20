@@ -57,15 +57,21 @@ export function createGraph(
         const weight_2 = randomInt(min, max);
         const weight_3 = randomInt(min, max);
 
-        graph[a][b] = weight_1;
-        graph[b][c] = weight_2;
-        graph[c][a] = weight_3;
-
         // Si es no dirigido, duplicamos las aristas con el mismo peso
         if (type === "undirected") {
             graph[b][a] = weight_1; // B -> A con el mismo peso
             graph[c][b] = weight_2; // C -> B con el mismo peso
             graph[a][c] = weight_3; // A -> C con el mismo peso
+        } else if (type === "directed") {
+            if (graph[b][a] === undefined) {
+                graph[a][b] = weight_1;
+            }
+            if (graph[c][b] === undefined) {
+                graph[b][c] = weight_2;
+            }
+            if (graph[a][c] === undefined) {
+                graph[c][a] = weight_3;
+            }
         }
     }
 
