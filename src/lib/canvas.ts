@@ -30,16 +30,23 @@ export function createNodeAndEdges(graph: Graph, coords: GraphCoord) {
     }
 
     const edges: CanvaEdge[] = [];
+    const combinations = new Set();
 
     for (const source of Object.keys(graph)) {
         for (const target of Object.keys(graph[source])) {
-            const edge: CanvaEdge = {
-                source: nodes.findIndex((node) => node.label === source),
-                target: nodes.findIndex((node) => node.label === target),
-                weight: 1,
-                selected: false,
-            };
-            edges.push(edge);
+            const keyab = `${source}-${target}`;
+            const keyba = `${target}-${source}`;
+
+            if (!combinations.has(keyba) && !combinations.has(keyab)) {
+                const edge: CanvaEdge = {
+                    source: nodes.findIndex((node) => node.label === source),
+                    target: nodes.findIndex((node) => node.label === target),
+                    weight: graph[source][target],
+                    selected: false,
+                };
+                edges.push(edge);
+                combinations.add(keyba);
+            }
         }
     }
 
