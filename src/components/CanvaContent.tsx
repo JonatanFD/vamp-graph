@@ -135,7 +135,6 @@ export default function CanvaContent() {
                             key={index}
                             edge={edge}
                             nodes={nodes}
-                            index={index}
                             isDirected={
                                 currentPageGraph[edge.target][edge.source] ===
                                 undefined
