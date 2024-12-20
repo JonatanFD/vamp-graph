@@ -66,7 +66,7 @@ export default function CreateCanva({
             data.maxWeight
         );
 
-        console.log(graph);
+        console.log("GRAPH", graph);
         console.log(coords);
 
         const pageId = crypto.randomUUID();
