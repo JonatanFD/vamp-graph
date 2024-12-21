@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import Node from "./canva-elements/Node";
 import Edge from "./canva-elements/Edge";
 import { Algorithm, MSTSolution, useAnimation } from "@/hooks/use-animation";
+import { FordFulkersonSolution } from "@/lib/algorithms/ford-fulkerson";
 
 export default function CanvaContent() {
     const { currentPage, pages } = useVampGraph();
@@ -86,7 +87,6 @@ export default function CanvaContent() {
         if (!solution) return;
 
         if (algorithm === Algorithm.PRIM || algorithm === Algorithm.KRUSKAL) {
-
             const getStep = (step: number) => {
                 const sol = solution as MSTSolution;
                 const tree = sol.tree;
@@ -100,11 +100,54 @@ export default function CanvaContent() {
                 return matches;
             };
             const combinations = getStep(step);
-            console.log([...combinations]);
-            
+
             const showEdges = (prev: CanvaEdge[]) => {
                 const newEdges = prev.map((edge) => {
-                    const edgeKey = edge.source.toString() + edge.target.toString();
+                    const edgeKey =
+                        edge.source.toString() + edge.target.toString();
+                    if (!combinations.has(edgeKey)) {
+                        edge.selected = false;
+                        return edge;
+                    }
+
+                    edge.selected = true;
+                    return edge;
+                });
+                return newEdges;
+            };
+
+            const edgesToShow = showEdges(edges);
+            setEdges(edgesToShow);
+        } else if (algorithm === Algorithm.FULKERSON) {
+            const getFlow = (index: number) => {
+                const sol = solution as FordFulkersonSolution;
+                const steps = sol.steps;
+
+                const flow = steps[index];
+
+                return flow;
+            };
+
+            const flow = getFlow(row);
+
+            const getStep = (step: number) => {
+                const tree = flow;
+
+                const matches = new Set<string>();
+                for (let i = 0; i < step + 1; i++) {
+                    matches.add(tree[i][0] + tree[i][1]);
+                    matches.add(tree[i][1] + tree[i][0]);
+                }
+
+                return matches;
+            };
+
+            const combinations = getStep(step);
+
+            const showEdges = (prev: CanvaEdge[]) => {
+                const newEdges = prev.map((edge) => {
+                    const edgeKey =
+                        edge.source.toString() + edge.target.toString();
                     if (!combinations.has(edgeKey)) {
                         edge.selected = false;
                         return edge;
@@ -120,10 +163,6 @@ export default function CanvaContent() {
             console.log("EDGES TO SHOW", edgesToShow);
             setEdges(edgesToShow);
         }
-
-
-
-
     }, [step, row]);
 
     return (
