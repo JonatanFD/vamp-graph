@@ -5,6 +5,10 @@
     font-family: "Geist";
     src: url("/fonts/Geist-VariableFont_wght.ttf");
 }
+@font-face {
+    font-family: "GeistMono";
+    src: url("/fonts/GeistMono_wght.ttf");
+}
 
 * {
     font-family: "Geist";
@@ -106,4 +110,8 @@ p {
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.cm-line {
+    font-family: "GeistMono" !important;
 }

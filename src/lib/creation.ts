@@ -33,6 +33,19 @@ export function createCoords(nodes: number) {
     return graph;
 }
 
+export function createCoordsFromGraph(graph: Graph) {
+    const coords: GraphCoord = {};
+    const names = Object.keys(graph);
+    names.forEach((name) => {
+        coords[name] = {
+            x: randomInt(0, window.innerWidth),
+            y: randomInt(0, window.innerHeight),
+        };
+    });
+
+    return coords;
+}
+
 export function createGraph(
     nodes: number,
     type: "directed" | "undirected",
