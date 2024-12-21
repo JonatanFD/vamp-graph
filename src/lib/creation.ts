@@ -59,6 +59,10 @@ export function createGraph(
 
         // Si es no dirigido, duplicamos las aristas con el mismo peso
         if (type === "undirected") {
+            graph[a][b] = weight_1; // A -> B con el mismo peso
+            graph[b][c] = weight_2; // B -> C con el mismo peso
+            graph[c][a] = weight_3; // C -> A con el mismo peso
+            
             graph[b][a] = weight_1; // B -> A con el mismo peso
             graph[c][b] = weight_2; // C -> B con el mismo peso
             graph[a][c] = weight_3; // A -> C con el mismo peso

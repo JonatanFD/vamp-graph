@@ -12,7 +12,6 @@ export default function Edge({
     nodes: CanvaNode[];
     isDirected: boolean;
 }) {
-
     const NODE_RADIUS = 14;
     const EDGE_COLOR = edge.selected ? "#0C59DF" : "white";
 
@@ -26,31 +25,21 @@ export default function Edge({
         <Group>
             {isDirected ? (
                 <Arrow
-                    stroke={"white"}
+                    stroke={EDGE_COLOR}
                     points={points}
                     strokeWidth={2}
                     fill={EDGE_COLOR}
                     lineCap="round"
                 />
             ) : (
-                <Line
-                    points={points}
-                    stroke={EDGE_COLOR}
-                    strokeWidth={2}
-                />
+                <Line points={points} stroke={EDGE_COLOR} strokeWidth={2} />
             )}
             <EdgeWeight edge={edge} points={points} />
         </Group>
     );
 }
 
-function EdgeWeight({
-    edge,
-    points,
-}: {
-    edge: CanvaEdge;
-    points: number[];
-}) {
+function EdgeWeight({ edge, points }: { edge: CanvaEdge; points: number[] }) {
     const weightRef = useRef<Konva.Text>(null);
     const rectRef = useRef<Konva.Rect>(null);
     const weightWidth = Math.abs(points[2] - points[0]);
@@ -58,7 +47,6 @@ function EdgeWeight({
 
     const NODE_RADIUS = 14;
     const FONT_SIZE = 14;
-
 
     useEffect(() => {
         if (!weightRef.current) return;
@@ -85,14 +73,16 @@ function EdgeWeight({
 
     return (
         <>
-            <Rect
-                fill={"black"}
-                ref={rectRef}
-                cornerRadius={1}
-            />
+            <Rect fill={"black"} ref={rectRef} cornerRadius={1} />
             <Text
-                x={(points[0] < points[2] ? points[0] : points[2]) - NODE_RADIUS}
-                y={(points[1] < points[3] ? points[1] : points[3]) - NODE_RADIUS}
+                x={
+                    (points[0] < points[2] ? points[0] : points[2]) -
+                    NODE_RADIUS
+                }
+                y={
+                    (points[1] < points[3] ? points[1] : points[3]) -
+                    NODE_RADIUS
+                }
                 text={edge.weight.toString()}
                 fontSize={14}
                 fill={"white"}

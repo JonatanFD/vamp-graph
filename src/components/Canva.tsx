@@ -121,11 +121,8 @@ export default function Canva() {
             if (node === undefined) return;
             if (node === "-1") return;
 
-            console.log(node);
 
             if (connect.source === "") {
-                console.log("setting source");
-
                 setConnectNode(node, "source");
             } else if (connect.target === "") {
                 if (node === connect.source) {
@@ -133,9 +130,6 @@ export default function Canva() {
                     // toast error
                     return;
                 }
-
-                console.log("setting target");
-
                 setConnectNode(node, "target");
                 setContent(<NewConnection />);
             }

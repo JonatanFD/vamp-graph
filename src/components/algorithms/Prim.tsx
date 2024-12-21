@@ -16,6 +16,7 @@ import { useVampGraph } from "@/hooks/use-vamp-graph";
 import { MSTSolution, useAnimation } from "@/hooks/use-animation";
 import { SidebarGroupContent } from "../ui/sidebar";
 import { prim } from "@/lib/algorithms/prim";
+import MSTTable from "./MSTTable";
 
 const PrimFormSchema = z.object({
     origin: z.string(),
@@ -95,7 +96,7 @@ export default function Prim() {
                 </form>
             </Form>
             <div className="px-2 mb-3">
-                <Label className="text-xs">Step: </Label>
+                <Label className="text-xs">Step </Label>
             </div>
 
             <div className="flex gap-1 flex-1 px-2 items-center">
@@ -117,6 +118,7 @@ export default function Prim() {
                     <StepForward />
                 </Button>
             </div>
+            <MSTTable />
         </SidebarGroupContent>
     );
 }

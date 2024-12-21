@@ -75,9 +75,6 @@ export default function CanvaContent() {
                 coords
             );
 
-            console.log("NODES", nodes);
-            console.log("EDGES", edges);
-
             setNodes(nodes);
 
             const filteredEdges = filterEdgesToCanvas(edges);
@@ -88,7 +85,7 @@ export default function CanvaContent() {
     useEffect(() => {
         if (!solution) return;
 
-        if (algorithm === Algorithm.PRIM) {
+        if (algorithm === Algorithm.PRIM || algorithm === Algorithm.KRUSKAL) {
 
             const getStep = (step: number) => {
                 const sol = solution as MSTSolution;
@@ -103,7 +100,8 @@ export default function CanvaContent() {
                 return matches;
             };
             const combinations = getStep(step);
-
+            console.log([...combinations]);
+            
             const showEdges = (prev: CanvaEdge[]) => {
                 const newEdges = prev.map((edge) => {
                     const edgeKey = edge.source.toString() + edge.target.toString();
@@ -118,7 +116,9 @@ export default function CanvaContent() {
                 return newEdges;
             };
 
-            setEdges(showEdges(edges));
+            const edgesToShow = showEdges(edges);
+            console.log("EDGES TO SHOW", edgesToShow);
+            setEdges(edgesToShow);
         }
 
 

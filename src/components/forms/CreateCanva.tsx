@@ -53,12 +53,14 @@ export default function CreateCanva({
             title: "",
             nodes: 10,
             preset: "directed",
-            minWeight: 0,
+            minWeight: 1,
             maxWeight: 10,
         },
     });
 
     const onSubmit = formState.handleSubmit((data) => {
+        console.log("PRESET ", data.preset);
+        
         const { graph, coords } = createGraph(
             data.nodes,
             data.preset,

@@ -31,8 +31,6 @@ export default function NewConnection() {
     });
 
     const onSubmit = formState.handleSubmit((data) => {
-        console.log("DATA", data);
-        console.log("CONNECT", connect);
         const page = getCurrentPage();
         if (!page) return;
 
