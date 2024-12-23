@@ -16,8 +16,8 @@ export default function Edge({
     const EDGE_COLOR = edge.selected ? "#0C59DF" : "white";
 
     const points = getPoints(
-        nodes[edge.source],
-        nodes[edge.target],
+        nodes.find((node) => node.label === edge.source)!,
+        nodes.find((node) => node.label === edge.target)!,
         NODE_RADIUS
     );
 

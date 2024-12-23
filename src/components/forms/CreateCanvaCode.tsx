@@ -6,7 +6,14 @@ import {
     DialogHeader,
     DialogTitle,
 } from "../ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "../ui/form";
 import { json } from "@codemirror/lang-json";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +23,7 @@ import { createCoordsFromGraph } from "@/lib/creation";
 import { useCanvas } from "@/hooks/use-canva";
 import { useVampGraph } from "@/hooks/use-vamp-graph";
 import { Input } from "../ui/input";
+import { useRef } from "react";
 
 const ImportFormSchema = z.object({
     file: z.string(),
@@ -32,6 +40,7 @@ export default function CreateCanvaCode() {
             title: "",
         },
     });
+    const closeRef = useRef<HTMLButtonElement>(null);
 
     const onSubmitImport = importFormState.handleSubmit((data) => {
         console.log("DATA", data);
@@ -51,6 +60,8 @@ export default function CreateCanvaCode() {
             id: pageId,
             graph: coords,
         });
+
+        closeRef.current?.click();
     });
 
     return (
@@ -86,11 +97,12 @@ export default function CreateCanvaCode() {
                     control={importFormState.control}
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>File</FormLabel>
+                            <FormLabel>Code</FormLabel>
                             <FormControl>
                                 <ReactCodeMirror
                                     theme="dark"
                                     height="220px"
+                                    width="462px"
                                     extensions={[dracula, json()]}
                                     basicSetup={{
                                         tabSize: 4,
@@ -98,16 +110,16 @@ export default function CreateCanvaCode() {
                                     {...field}
                                 />
                             </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
 
-                <DialogClose asChild>
-                    <Button className="w-full" type="submit">
-                        Create
-                    </Button>
-                </DialogClose>
+                <Button className="w-full" type="submit">
+                    Create
+                </Button>
             </form>
+            <DialogClose ref={closeRef} className="hidden"></DialogClose>
         </Form>
     );
 }

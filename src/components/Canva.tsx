@@ -87,6 +87,7 @@ export default function Canva() {
         if (!page) return;
 
         const pos = e.target.getStage()!.getRelativePointerPosition();
+        if (!pos) return;
         const currentCoords = graphs.find((graph) => graph.id === page?.id);
 
         if (!currentCoords) return;
@@ -114,13 +115,13 @@ export default function Canva() {
             updateCoords(updatedCoords);
         } else if (tool === "connect") {
             //sacsa
+            console.log("CONNECT", connect);
+            
             const node = getNodeByPosition(
                 currentCoords,
-                pos as NodeCoord
-            ).toString();
+                pos
+            )
             if (node === undefined) return;
-            if (node === "-1") return;
-
 
             if (connect.source === "") {
                 setConnectNode(node, "source");

@@ -169,17 +169,20 @@ export default function CanvaContent() {
         <>
             {nodes.length > 0 && Object.keys(currentPageGraph).length > 0 && (
                 <>
-                    {edges.map((edge, index) => (
-                        <Edge
-                            key={index}
-                            edge={edge}
-                            nodes={nodes}
-                            isDirected={
-                                currentPageGraph[edge.target][edge.source] ===
-                                undefined
-                            }
-                        />
-                    ))}
+                    {edges.map((edge, index) => 
+                         (
+                            <Edge
+                                key={index}
+                                edge={edge}
+                                nodes={nodes}
+                                isDirected={
+                                    currentPageGraph[edge.target][
+                                        edge.source
+                                    ] === undefined
+                                }
+                            />
+                        )
+                    )}
                     {nodes.map((node, index) => (
                         <Node
                             key={index}

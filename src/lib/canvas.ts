@@ -10,8 +10,8 @@ export interface CanvaNode {
 }
 
 export interface CanvaEdge {
-    source: number;
-    target: number;
+    source: string;
+    target: string;
     weight: number;
     selected: boolean;
 }
@@ -39,8 +39,8 @@ export function createNodeAndEdges(graph: Graph, coords: GraphCoord) {
 
             if (!combinations.has(keyba) && !combinations.has(keyab)) {
                 const edge: CanvaEdge = {
-                    source: nodes.findIndex((node) => node.label === source),
-                    target: nodes.findIndex((node) => node.label === target),
+                    source,
+                    target,
                     weight: graph[source][target],
                     selected: false,
                 };
@@ -95,6 +95,7 @@ export function getNodeByPosition(
     radius: number = 10
 ) {
     const values = Object.values(coords.graph);
+    const names = Object.keys(coords.graph);
 
     const node = values.findIndex((node) => {
         const distance = Math.sqrt(
@@ -103,7 +104,7 @@ export function getNodeByPosition(
         return distance < radius;
     });
 
-    return node;
+    return names[node];
 }
 
 export function getPoints(from: CanvaNode, to: CanvaNode, nodeRadius: number) {
