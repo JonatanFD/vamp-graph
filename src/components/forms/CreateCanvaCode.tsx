@@ -41,27 +41,26 @@ export default function CreateCanvaCode() {
         },
     });
     const closeRef = useRef<HTMLButtonElement>(null);
+    const setError = importFormState.setError;
 
     const onSubmitImport = importFormState.handleSubmit((data) => {
-        console.log("DATA", data);
-        const graph = JSON.parse(data.file);
-        console.log("GRAPH", graph);
-
-        const coords = createCoordsFromGraph(graph);
-
-        const pageId = crypto.randomUUID();
-
-        addPage({
-            id: pageId,
-            name: data.title,
-            graph: graph,
-        });
-        addGraph({
-            id: pageId,
-            graph: coords,
-        });
-
-        closeRef.current?.click();
+        try {
+            const graph = JSON.parse(data.file);
+            const coords = createCoordsFromGraph(graph);
+            const pageId = crypto.randomUUID();
+            addPage({
+                id: pageId,
+                name: data.title,
+                graph: graph,
+            });
+            addGraph({
+                id: pageId,
+                graph: coords,
+            });
+            closeRef.current?.click();
+        } catch {
+            setError("file", { type: "pattern", message: "Invalid JSON" });
+        }
     });
 
     return (
