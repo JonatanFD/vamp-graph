@@ -1,12 +1,13 @@
-import { Moon, Settings2, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../mode-toggle";
+import Settings from "../Settings";
 
 export default function CanvaSettings() {
     return (
         <>
             <Button variant="outline" size="icon">
-                <Settings2 />
+                <Settings />
             </Button>
             <ModeToggle>
                 <Button variant="outline" size="icon">

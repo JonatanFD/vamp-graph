@@ -1,3 +1,4 @@
+import { useAppSettings } from "@/hooks/use-settings";
 import { CanvaEdge, CanvaNode, getPoints } from "@/lib/canvas";
 import Konva from "konva";
 import { useEffect, useRef } from "react";
@@ -12,8 +13,9 @@ export default function Edge({
     nodes: CanvaNode[];
     isDirected: boolean;
 }) {
-    const NODE_RADIUS = 14;
-    const EDGE_COLOR = edge.selected ? "#0C59DF" : "white";
+    const {canva, colors} = useAppSettings();
+    const NODE_RADIUS = canva.nodeRadius;
+    const EDGE_COLOR = edge.selected ? "#0C59DF" : colors.edge;
 
     const points = getPoints(
         nodes.find((node) => node.label === edge.source)!,
@@ -45,8 +47,10 @@ function EdgeWeight({ edge, points }: { edge: CanvaEdge; points: number[] }) {
     const weightWidth = Math.abs(points[2] - points[0]);
     const weightHeight = Math.abs(points[3] - points[1]);
 
-    const NODE_RADIUS = 14;
-    const FONT_SIZE = 14;
+    const {canva, colors} = useAppSettings()
+
+    const NODE_RADIUS = canva.nodeRadius;
+    const FONT_SIZE = canva.edgeFontSize;
 
     useEffect(() => {
         if (!weightRef.current) return;
@@ -73,7 +77,7 @@ function EdgeWeight({ edge, points }: { edge: CanvaEdge; points: number[] }) {
 
     return (
         <>
-            <Rect fill={"black"} ref={rectRef} cornerRadius={1} />
+            <Rect fill={colors.weightBackground} ref={rectRef} cornerRadius={1} />
             <Text
                 x={
                     (points[0] < points[2] ? points[0] : points[2]) -
@@ -85,7 +89,7 @@ function EdgeWeight({ edge, points }: { edge: CanvaEdge; points: number[] }) {
                 }
                 text={edge.weight.toString()}
                 fontSize={14}
-                fill={"white"}
+                fill={colors.weightText}
                 align="center"
                 verticalAlign="middle"
                 width={weightWidth + NODE_RADIUS * 2}
