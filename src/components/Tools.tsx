@@ -1,6 +1,7 @@
 import { ArrowBigRightIcon, Circle, Mouse } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 import { CanvaTool, useTool } from "@/hooks/use-tool";
+import CanvaCode from "./CanvaCode";
 
 export default function Tools() {
     const { setTool } = useTool();
@@ -27,6 +28,7 @@ export default function Tools() {
                     <ArrowBigRightIcon />
                 </ToggleGroupItem>
             </ToggleGroup>
+            <CanvaCode />
         </section>
     );
 }
