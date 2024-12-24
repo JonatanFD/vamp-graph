@@ -1,4 +1,5 @@
-import CustomCanva from "./forms/CreateCustomCanva";
+import CreateCanva from "./forms/CreateCanva";
+import CreateCustomCanva from "./forms/CreateCustomCanva";
 import { Button } from "./ui/button";
 
 export default function NoCanva() {
@@ -11,11 +12,15 @@ export default function NoCanva() {
                 </div>
 
                 <div className="mt-8 text-center flex flex-col gap-2 w-full">
-                    <CustomCanva>
+                    <CreateCustomCanva>
                         <Button variant="outline">Create custom Graph</Button>
-                    </CustomCanva>
-                    <Button variant="outline">Create a new Canva</Button>
-                    <Button variant="outline">Load a Graph</Button>
+                    </CreateCustomCanva>
+                    <CreateCanva defaultValue="create">
+                        <Button variant="outline">Create a new Canva</Button>
+                    </CreateCanva>
+                    <CreateCanva defaultValue="import">
+                        <Button variant="outline">Import Graph</Button>
+                    </CreateCanva>
                 </div>
             </section>
         </section>

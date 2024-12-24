@@ -20,7 +20,7 @@ import { useCanvas } from "@/hooks/use-canva";
 const formSchema = z.object({
     title: z.string().min(2).max(20),
 });
-export default function CustomCanva({
+export default function CreateCustomCanva({
     children,
 }: {
     children: React.ReactNode;

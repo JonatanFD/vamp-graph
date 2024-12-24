@@ -37,8 +37,8 @@ const CanvaFormSchema = z.object({
     title: z.string().min(2).max(50),
     nodes: z.coerce.number().min(2).max(100),
     preset: z.enum(["directed", "undirected"]),
-    minWeight: z.coerce.number(),
-    maxWeight: z.coerce.number(),
+    minWeight: z.coerce.number().min(1),
+    maxWeight: z.coerce.number().min(1),
 });
 
 export default function CreateCanva({
@@ -191,7 +191,7 @@ export default function CreateCanva({
                                                 <FormControl>
                                                     <Input
                                                         type="number"
-                                                        min={-50}
+                                                        min={1}
                                                         max={50}
                                                         {...field}
                                                     />
@@ -211,7 +211,7 @@ export default function CreateCanva({
                                                 <FormControl>
                                                     <Input
                                                         type="number"
-                                                        min={-50}
+                                                        min={1}
                                                         max={50}
                                                         {...field}
                                                     />
