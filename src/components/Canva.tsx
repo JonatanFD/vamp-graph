@@ -114,9 +114,6 @@ export default function Canva() {
 
             updateCoords(updatedCoords);
         } else if (tool === "connect") {
-            //sacsa
-            console.log("CONNECT", connect);
-            
             const node = getNodeByPosition(
                 currentCoords,
                 pos

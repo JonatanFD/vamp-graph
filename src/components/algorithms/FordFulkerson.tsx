@@ -14,7 +14,7 @@ import {
 import { Button } from "../ui/button";
 import { StepBack, StepForward } from "lucide-react";
 import { useAnimation } from "@/hooks/use-animation";
-import { FordFulkersonSolution } from "@/lib/algorithms/ford-fulkerson";
+import { ford_fulkerson, FordFulkersonSolution } from "@/lib/algorithms/ford-fulkerson";
 import { Label } from "../ui/label";
 
 const FordFormSchema = z.object({
@@ -24,7 +24,7 @@ const FordFormSchema = z.object({
 
 export default function FordFulkerson() {
     const { getCurrentPage } = useVampGraph();
-    const { row, step, setRow, setStep, solution } = useAnimation();
+    const { row, step, setRow, setStep, solution, setSolution } = useAnimation();
     const currentGraph = getCurrentPage()!;
     const names = Object.keys(currentGraph.graph);
 
@@ -39,7 +39,14 @@ export default function FordFulkerson() {
     });
 
     const onSubmit = formState.handleSubmit((data) => {
-        console.log(data);
+        const currentGraph = getCurrentPage()!;
+        setSolution(
+            ford_fulkerson(
+                currentGraph.graph,
+                data.source,
+                data.target
+            )
+        );
     });
 
     const handleNextStep = () => {
@@ -169,7 +176,7 @@ export default function FordFulkerson() {
                     <StepForward />
                 </Button>
             </div>
-            
+
             <Label className="text-xs">Step: </Label>
             <div className="flex gap-1 flex-1 items-center">
                 <Button

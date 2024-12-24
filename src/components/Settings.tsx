@@ -34,7 +34,6 @@ export default function Settings() {
     });
 
     const handleReset = () => {
-        console.log("RESET");
         localStorage.setItem(
             "app-settings",
             JSON.stringify(DEFAULT_APP_SETTINGS)
@@ -43,7 +42,6 @@ export default function Settings() {
     };
 
     const onSubmit = formState.handleSubmit((data) => {
-        console.log("DATA", data);
         localStorage.setItem("app-settings", JSON.stringify(data));
         setAppSettings(data as AppSettingsData);
     });

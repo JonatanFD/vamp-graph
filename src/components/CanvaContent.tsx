@@ -160,7 +160,6 @@ export default function CanvaContent() {
             };
 
             const edgesToShow = showEdges(edges);
-            console.log("EDGES TO SHOW", edgesToShow);
             setEdges(edgesToShow);
         }
     }, [step, row]);

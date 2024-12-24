@@ -63,17 +63,12 @@ export default function CreateCanva({
     });
 
     const onSubmit = formState.handleSubmit((data) => {
-        console.log("PRESET ", data.preset);
-
         const { graph, coords } = createGraph(
             data.nodes,
             data.preset,
             data.minWeight,
             data.maxWeight
         );
-
-        console.log("GRAPH", graph);
-        console.log(coords);
 
         const pageId = crypto.randomUUID();
 
