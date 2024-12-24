@@ -8,13 +8,26 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="lucide lucide-waypoints"
+    class="lucide lucide-waypoints theme-dependent"
 >
-    <circle cx="12" cy="4.5" r="2.5"></circle>
-    <path d="m10.2 6.3-3.9 3.9"></path>
-    <circle cx="4.5" cy="12" r="2.5"></circle>
-    <path d="M7 12h10"></path>
-    <circle cx="19.5" cy="12" r="2.5"></circle>
-    <path d="m13.8 17.7 3.9-3.9"></path>
-    <circle cx="12" cy="19.5" r="2.5"></circle>
-</svg>;
+    <circle cx="12" cy="4.5" r="2.5" class="theme-dependent"></circle>
+    <path d="m10.2 6.3-3.9 3.9" class="theme-dependent"></path>
+    <circle cx="4.5" cy="12" r="2.5" class="theme-dependent"></circle>
+    <path d="M7 12h10" class="theme-dependent"></path>
+    <circle cx="19.5" cy="12" r="2.5" class="theme-dependent"></circle>
+    <path d="m13.8 17.7 3.9-3.9" class="theme-dependent"></path>
+    <circle cx="12" cy="19.5" r="2.5" class="theme-dependent"></circle>
+    <style>
+    .theme-dependent {
+        stroke: black;
+        fill: black;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .theme-dependent {
+            fill: black;
+            stroke: white;
+        }
+    }
+    </style>
+</svg>
